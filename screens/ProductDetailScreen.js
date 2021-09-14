@@ -1,18 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import ProductDetail from '../components/ProductDetail';
-import { PRODUCTS } from '../data/items'
+import { View } from 'react-native'
+import { useSelector} from 'react-redux';
 
-export default function ProductDetailScreen( { route } ) {
 
-    //funcion para traer los detalles del producto por ID
-    const products = PRODUCTS.find(prod => prod.id === route.params.categoryID);
+const ProductDetailScreen = () => {
+
+    //Utilizacion de los componentes de redux para filtrar producto.
+    const productsID = useSelector(state => state.products.selectedID);
+    const products = useSelector(state => state.products.list);
+    const product = products.find(item => item.id === productsID);
 
     return (
-        <ProductDetail detail={products} />
+        
+        <View>
+            <ProductDetail detail={product} />
+        </View>
+        
     );
 }
 
-const styles = StyleSheet.create({
-
-});
+export default ProductDetailScreen

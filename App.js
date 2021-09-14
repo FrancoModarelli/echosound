@@ -1,9 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useFonts } from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import ProductNavigator from './navigation/ProductNavigator';
+import { Provider } from 'react-redux'
+import store from './store'
 
 export default function App() {
 
@@ -16,7 +18,9 @@ export default function App() {
 
 
   return (
-    <ProductNavigator/>
+    <Provider store={store}>
+      <ProductNavigator/>
+    </Provider>
   );
 }
 

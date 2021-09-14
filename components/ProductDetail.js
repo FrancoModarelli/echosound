@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, Platform, StyleSheet, Image } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import colors from '../constants/colors'
 
 const ProductDetail = ({ detail }) => {
@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'PoppinsBold',
-        fontSize: 23,
-        paddingTop:20,
-        paddingBottom: 20,
+        fontSize: 18,
+        paddingTop: 20,
+        paddingBottom: 40,
         textAlign:'center',
         color:colors.title,
     },

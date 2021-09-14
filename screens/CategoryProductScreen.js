@@ -1,20 +1,28 @@
-import React from 'react';
-import { StyleSheet, FlatList } from 'react-native';
+import React, { useEffect } from 'react';
+import { FlatList } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import ProductItem from '../components/ProductItem'
-import { PRODUCTS } from '../data/items'
+import { filterProduct, selectProduct } from '../store/actions/product.action';
 
-export default function CategoryProductScreen( {navigation, route } ) {
-
-    //funcion para traer los productos de cada categoria
-    const products = PRODUCTS.filter(prod => prod.category === route.params.categoryID);
-
-    const renderItemProduct = ({ item }) => <ProductItem item={item} onSeleted={handleSelected}/>;
+const CategoryProductScreen = ( {navigation} ) => {
     
+    //Utilizacion de los componentes de redux para filtrar producto.
+    const dispatch = useDispatch();
+    const categoryID = useSelector(state => state.categories.selectedID);
+    const products = useSelector(state => state.products.filteredProduct);
+
+    useEffect(() => {
+        dispatch(filterProduct(categoryID))
+        console.log(categoryID)
+    }, [categoryID])
+
     const handleSelected = (item) => {
-        navigation.navigate('Detail',{
-            categoryID: item.id,
-        })
+        dispatch(selectProduct(item.id))
+        navigation.navigate('Detail')
     }
+
+    //const para que el componente reciba datos
+    const renderItemProduct = ({ item }) => <ProductItem item={item} onSeleted={handleSelected}/>;
 
     return (
         <FlatList
@@ -26,17 +34,4 @@ export default function CategoryProductScreen( {navigation, route } ) {
     );
 }
 
-const styles = StyleSheet.create({
-container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-},
-ButtonPage:{
-    padding: 10,
-    backgroundColor: '#DF2122',
-    alignItems: 'center',
-    fontFamily: 'PoppinsBold'
-}
-});
+export default CategoryProductScreen

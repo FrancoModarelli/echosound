@@ -1,29 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
-import { CATEGORIES } from '../data/categories';
+import { FlatList } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import Griditem from '../components/GridItem';
+import { selectCategory } from '../store/actions/category.action';
 
-export default function CategoriesScreen( { navigation, route }) {
+const CategoriesScreen = ( { navigation }) => {
     
-    //creo funcion para el renderItem y poder pasar props al componente
-    const renderGridItem = data => <Griditem item={data.item} onSeleted={handleSelectedCategory}/>
+    const dispatch = useDispatch()
+    const categories = useSelector(state => state.categories.list);
+    
     //creo este manejador para envar los datos de la categoria.
     const handleSelectedCategory = (item) => {
+        dispatch(selectCategory(item.id));
         navigation.navigate('Products',{
-            categoryID: item.id,
             name: item.title,
-        })
+        });
     }
+
+    //creo funcion para el renderItem y poder pasar props al componente
+    const renderGridItem = ({ item }) => <Griditem item={item} onSeleted={handleSelectedCategory}/>
+
     return (
         <FlatList 
-            horizontal={true}
-            data={CATEGORIES}
+            data={categories}
             keyExtractor={(item) => item.id}
             renderItem={renderGridItem}
+            horizontal={true}
         />
     );
 }
 
-const styles = StyleSheet.create({
-    
-});
+export default CategoriesScreen
