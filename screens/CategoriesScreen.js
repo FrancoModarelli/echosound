@@ -3,6 +3,10 @@ import { FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Griditem from '../components/GridItem';
 import { selectCategory } from '../store/actions/category.action';
+import { FAB } from 'react-native-element'
+import { Ionicons } from '@expo/vector-icons'
+import { COLORS } from '../constants/colors'
+import CartScreen from './CartScreen';
 
 const CategoriesScreen = ( { navigation }) => {
     
@@ -21,13 +25,29 @@ const CategoriesScreen = ( { navigation }) => {
     const renderGridItem = ({ item }) => <Griditem item={item} onSeleted={handleSelectedCategory}/>
 
     return (
-        <FlatList 
+        <View style={styles.container}>
+            <FlatList 
             data={categories}
             keyExtractor={(item) => item.id}
             renderItem={renderGridItem}
             horizontal={true}
-        />
+            />
+            <FAB 
+                icon={ <Ionicons name='cart' size={24} color='white'/> }
+                placement='right'
+                color={COLORS.warning}
+                onPress={() => navigation.navigate(CartScreen)}
+            />
+        </View>
+        
     );
 }
+
+const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+        backgroundColor: COLORS.backG,
+    }
+})
 
 export default CategoriesScreen

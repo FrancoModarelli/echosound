@@ -6,6 +6,7 @@ import CategoryProductScreen from '../screens/CategoryProductScreen';
 import CategoriesScreen from '../screens/CategoriesScreen';
 import ProductDetailScreen from '../screens/ProductDetailScreen';
 import colors from '../constants/colors'
+import CartScreen from "../screens/CartScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ const ProductNavigator = () => (
             <Stack.Screen name='Home' options={{ title:'Categorias' }} component={CategoriesScreen} />
             <Stack.Screen name='Products' options={({ route })=> ({ title: route.params.name })} component={CategoryProductScreen} />
             <Stack.Screen name='Detail' options={{ title:'Detalles del Producto' }} component={ProductDetailScreen} />
+            <Stack.Screen name='Cart' component={CartScreen} options={{ title: 'Cart' }} />
         </Stack.Navigator>
     </NavigationContainer>
 )

@@ -1,8 +1,19 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import colors from '../constants/colors'
+import { useDispatch } from "react-redux";
+import { addItem } from "../store/actions/cart.action";
 
 const ProductDetail = ({ detail }) => {
+
+    const dispatch = useDispatch();
+
+    const handlerAddItemCart = () => {
+        dispatch(addItem(detail));
+    }
+
+
+
     return (
         <View style={styles.gridItem}>
             <View style={styles.detailContainer}>
@@ -18,7 +29,7 @@ const ProductDetail = ({ detail }) => {
                         <Text style={styles.price}>$ {detail.price}</Text>
                     </View>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.button}>
+                        <TouchableOpacity style={styles.button} onPress={handlerAddItemCart}>
                             <Text style={styles.buttonText}>Add To Cart</Text>
                         </TouchableOpacity>
                     </View>

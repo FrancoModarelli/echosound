@@ -1,0 +1,1 @@
+export const URL_API = 'https://echosound-a4b0f-default-rtdb.firebaseio.com/'
